@@ -1,0 +1,10 @@
+version: '3.8'
+
+services:
+
+  php:
+    volumes:
+      - ./xdebug.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+    environment:
+      PHP_IDE_CONFIG: "serverName=todo"
+      XDEBUG_CONFIG: "client_host=${XDEBUG_HOST}"
