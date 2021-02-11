@@ -19,8 +19,8 @@ final class TodoListTest extends TestCase
 
     public function test_a_todo_list_can_be_created_with_items_in_it(): void
     {
-        $item1 = new Item();
-        $item2 = new Item();
+        $item1 = new Item('test label');
+        $item2 = new Item('test label');
 
         $todoList = new TodoList($item1, $item2);
 
@@ -30,8 +30,8 @@ final class TodoListTest extends TestCase
     public function test_we_can_add_items_to_a_todo_list(): void
     {
         $todoList = new TodoList();
-        $item1 = new Item();
-        $item2 = new Item();
+        $item1 = new Item('test label');
+        $item2 = new Item('test label');
 
         $todoList->add($item1);
         $todoList->add($item2);
@@ -42,8 +42,8 @@ final class TodoListTest extends TestCase
     public function test_we_can_remove_an_item_from_a_todo_list(): void
     {
         $todoList = new TodoList();
-        $item1 = new Item();
-        $item2 = new Item();
+        $item1 = new Item('test label');
+        $item2 = new Item('test label');
         $todoList->add($item1);
         $todoList->add($item2);
 
