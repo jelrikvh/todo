@@ -13,12 +13,6 @@ to open the PHP container with a shell.
 
 Run
 
-    make start
-
-to run the application in the PHP container.
-
-Run
-
     make test
 
 to run all test suites and quality checks.
@@ -30,8 +24,10 @@ to run all test suites and quality checks.
 - [x] Install Symfony
 - [x] Write the domain tests (testing the outer edges of the domain);
 - [x] Implement the domain so that the domain tests succeed.
-- [ ] Write the edge a.k.a. end-to-end a.k.a. integration tests (testing the command line interface);
-- [ ] Implement the command line interface with a Symfony command.
+- [x] Write the edge a.k.a. end-to-end a.k.a. integration tests (testing the command line interface);
+- [x] Implement the command line interface with a Symfony command;
+- [ ] Move the `check` and `uncheck` methods from the `Item` class to the `TodoList` class to be more in line with the
+`removeAnItem`, and to eliminate the need for an explicit `overwriteAllItems` call.
 
 ## Known issues
 
