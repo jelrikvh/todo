@@ -28,11 +28,8 @@ to run all test suites and quality checks.
 - [x] Set up a development environment;
 - [x] Set up quality control (phpmd, codesniffer, infection, phpstan);
 - [x] Install Symfony
-- [ ] Write the domain tests (testing the outer edges of the domain);
-- [ ] Implement the domain so that the domain tests succeed.
-
-### These fell off the backlog
-
+- [x] Write the domain tests (testing the outer edges of the domain);
+- [x] Implement the domain so that the domain tests succeed.
 - [ ] Write the edge a.k.a. end-to-end a.k.a. integration tests (testing the command line interface);
 - [ ] Implement the command line interface with a Symfony command.
 
