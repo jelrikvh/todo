@@ -4,31 +4,15 @@ declare(strict_types=1);
 
 namespace Todo\Domain;
 
-final class TodoList
+interface TodoList
 {
-    /** @var array<Item> */
-    private array $items = [];
-
-    public function __construct(Item ...$items)
-    {
-        $this->items = $items;
-    }
+    public function addAnItem(Item $item): void;
 
     /** @return array<Item> */
-    public function items(): array
-    {
-        return $this->items;
-    }
+    public function list(): array;
 
-    public function add(Item $item): void
-    {
-        $this->items[] = $item;
-    }
+    public function removeItem(Item $itemToRemove): void;
 
-    public function remove(Item $itemToRemove): void
-    {
-        $this->items = array_values(array_filter($this->items, function ($itemToInspect) use ($itemToRemove) {
-            return ($itemToRemove !== $itemToInspect);
-        }));
-    }
+    /** @param array<Item> $items */
+    public function overwriteAllItems(array $items): void;
 }

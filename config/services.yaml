@@ -1,10 +1,16 @@
 services:
-    # default configuration for services in *this* file
-    _defaults:
-        autowire: true      # Automatically injects dependencies in your services.
-        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+  # default configuration for services in *this* file
+  _defaults:
+    autowire: true      # Automatically injects dependencies in your services.
+    autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
 
-    Todo\:
-        resource: '../src/'
-        exclude: ['../src/Kernel.php']
+  Todo\:
+    resource: '../src/'
+    exclude: ['../src/Kernel.php']
 
+  Todo\Domain\TodoLists:
+    alias: Todo\Infrastructure\FilesystemTodoLists
+
+  Todo\Infrastructure\FilesystemTodoLists:
+    arguments:
+      $pathToTheDataFile: '/var/opt/.data/todolist/dev'
