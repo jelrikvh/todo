@@ -11,11 +11,28 @@ Run
 
 to open the PHP container with a shell.
 
-Run
+You can then use the Symfony command line interface to interact with the Todo list as follows:
+
+    bin/console todo:list // This is the main command, that will guide you forward
+
+The following commands are available for mutation:
+
+    bin/console todo:add [item number obtained from the todo list view]
+    bin/console todo:remove [item number obtained from the todo list view]
+    bin/console todo:check [item number obtained from the todo list view]
+    bin/console todo:uncheck [item number obtained from the todo list view]
+
+## Quality control
+
+This codebase is covered by
+- static analysis with PHPStan;
+- code style checks with PHP_CodeSniffer;
+- unit and end-to-end/edge tests with PHPUnit (see `tests/`);
+- mutation testing of said tests with Infection.
+
+To run the quality control suite, use
 
     make test
-
-to run all test suites and quality checks.
 
 ## Backlog
 

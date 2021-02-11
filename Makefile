@@ -3,11 +3,11 @@ DOCKER_COMPOSE = docker-compose --project-name todo --file infra/docker-compose.
 include infra/xdebug.mk
 
 .PHONY: shell
-shell: infra/.built vendor/composer/installed.json
+shell: infra/.built
 	$(DOCKER_COMPOSE) run php sh
 
 .PHONY: test
-test: infra/.built vendor/composer/installed.json
+test: infra/.built
 	$(DOCKER_COMPOSE) run --no-deps php sh -c ' \
 		vendor/bin/phpstan \
 			analyse \
