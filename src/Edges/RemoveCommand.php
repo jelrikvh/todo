@@ -34,6 +34,7 @@ final class RemoveCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $itemNumber = is_array($input->getArgument('itemNumber'))
+            || $input->getArgument('itemNumber') === null
             ? -1
             : $input->getArgument('itemNumber');
         $items = $this->todoList->list();

@@ -153,4 +153,24 @@ TEXT
         $this->assertStringContainsString('X There is no item with number -1; ignoring this.', $output);
         $this->assertStringContainsString('### Todo list', $output);
     }
+
+    public function test_it_lets_you_know_when_you_somehow_supplied_null_as_the_item_number(): void
+    {
+        (new FileSystem())->copy(
+            sprintf('%s/todolist-for-tests', __DIR__),
+            sprintf('%s/../../.data/test/list', __DIR__)
+        );
+
+        $kernel = self::createKernel();
+        $application = new Application($kernel);
+
+        $command = $application->find('todo:check');
+        $commandTester = new CommandTester($command);
+
+        $commandTester->execute(['itemNumber' => null]);
+
+        $output = $commandTester->getDisplay();
+        $this->assertStringContainsString('X There is no item with number -1; ignoring this.', $output);
+        $this->assertStringContainsString('### Todo list', $output);
+    }
 }

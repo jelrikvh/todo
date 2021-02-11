@@ -33,10 +33,11 @@ final class CheckCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $items = $this->todoList->list();
         $itemNumber = is_array($input->getArgument('itemNumber'))
+            || $input->getArgument('itemNumber') === null
             ? -1
             : $input->getArgument('itemNumber');
+        $items = $this->todoList->list();
 
         if (!array_key_exists($itemNumber, $items)) {
             $output->writeln(sprintf('X There is no item with number %s; ignoring this.', $itemNumber));

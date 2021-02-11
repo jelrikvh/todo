@@ -34,9 +34,7 @@ final class AddCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $label = trim(is_array($input->getArgument('label'))
-            ? ''
-            : $input->getArgument('label'));
+        $label = trim(!is_string($input->getArgument('label')) ? '' : $input->getArgument('label'));
 
         if (strlen($label) === 0) {
             $output->writeln('Sorry, you did not provide a label: bin/console todo:add "Type your label here"');
