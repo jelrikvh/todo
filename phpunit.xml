@@ -12,6 +12,8 @@
          verbose="true">
     <php>
         <env name="KERNEL_CLASS" value="Todo\Kernel"/>
+        <env name="SYMFONY_ENV" value="test"/>
+        <env name="DIRECTORY_THAT_CONTAINS_THE_TODO_LIST" value=".data/test"/>
     </php>
 
     <testsuites>

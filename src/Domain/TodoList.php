@@ -8,6 +8,10 @@ interface TodoList
 {
     public function addAnItem(Item $item): void;
 
+    public function isAllDone(): bool;
+
+    public function isEmpty(): bool;
+
     /** @return array<Item> */
     public function list(): array;
 

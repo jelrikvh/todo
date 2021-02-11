@@ -26,6 +26,7 @@ final class FilesystemTodoList implements TodoList
         $this->pathToTheDataFile = $pathToTheDataFile;
 
         $this->pathOfTheDataFile = sprintf('%s/%s', $this->pathToTheDataFile, $this->fileName);
+        $this->filesystem->touch($this->pathOfTheDataFile);
     }
 
     public function addAnItem(Item $item): void
@@ -34,6 +35,22 @@ final class FilesystemTodoList implements TodoList
             $this->pathOfTheDataFile,
             $this->fromItemToLine($item)
         );
+    }
+
+    public function isAllDone(): bool
+    {
+        foreach ($this->list() as $item) {
+            if ($item->isChecked() === false) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    public function isEmpty(): bool
+    {
+        return count($this->list()) < 1;
     }
 
     /** @return array<Item> */

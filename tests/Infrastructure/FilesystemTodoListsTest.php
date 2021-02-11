@@ -34,6 +34,47 @@ final class FilesystemTodoListsTest extends TestCase
         $this->assertFalse($todoList->list()[1]->isChecked());
     }
 
+    public function test_is_empty_returns_false_when_there_are_items(): void
+    {
+        $todoList = new FilesystemTodoList('.data/test');
+        $todoList->addAnItem(Item::new('new item 1'));
+
+        $this->assertFalse($todoList->isEmpty());
+    }
+
+    public function test_is_empty_returns_true_when_there_are_no_items(): void
+    {
+        $todoList = new FilesystemTodoList('.data/test');
+
+        $this->assertTrue($todoList->isEmpty());
+    }
+
+    public function test_is_all_done_returns_false_when_there_are_unchecked_items(): void
+    {
+        $todoList = new FilesystemTodoList('.data/test');
+        $todoList->addAnItem(Item::new('new item 1'));
+
+        $this->assertFalse($todoList->isAllDone());
+    }
+
+
+    public function test_is_all_done_returns_true_when_there_are_no_unchecked_items(): void
+    {
+        $todoList = new FilesystemTodoList('.data/test');
+        $item = Item::new('new item 1');
+        $item->check();
+        $todoList->addAnItem($item);
+
+        $this->assertTrue($todoList->isAllDone());
+    }
+
+
+    public function test_is_all_done_returns_true_when_there_are_no_items_at_all(): void
+    {
+        $todoList = new FilesystemTodoList('.data/test');
+        $this->assertTrue($todoList->isAllDone());
+    }
+
     public function test_an_item_can_be_removed_from_the_todo_list(): void
     {
         $itemToRemove = Item::new('new item 2');

@@ -13,4 +13,4 @@ services:
 
   Todo\Infrastructure\FilesystemTodoList:
     arguments:
-      $pathToTheDataFile: '/var/opt/.data/todolist/dev'
+      $pathToTheDataFile: '%env(DIRECTORY_THAT_CONTAINS_THE_TODO_LIST)%'
