@@ -7,7 +7,7 @@ ifeq ($(findstring Microsoft,$(shell uname -a)), Microsoft)
 __XDEBUG_PLATFORM = WINDOWS
 endif
 
-__XDEBUG_HOST_DARWIN = docker.mac.for.localhost
+__XDEBUG_HOST_DARWIN = docker.for.mac.localhost
 __XDEBUG_HOST_LINUX = $(shell ip -f inet addr show docker0 | grep -Po 'inet \K[\d.]+')
 __XDEBUG_HOST_WINDOWS = docker.for.win.localhost
 __XDEBUG_HOST_OFF = disabled
