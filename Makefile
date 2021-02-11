@@ -18,20 +18,7 @@ test: infra/.built vendor/composer/installed.json
 		&& vendor/bin/phpcs \
 			--colors \
 			-s src \
-		&& vendor/bin/phpmd \
-			src \
-			text \
-			phpmd.xml \
-	'
-	$(MAKE) unit-test
-
-.PHONY: clean
-clean:
-	git clean -fdX
-
-unit-test:
-	$(DOCKER_COMPOSE) run --no-deps php sh -c ' \
-		php -dmemory_limit=-1 -derror_reporting=-1 -ddisplay_errors=On -dpcov.enabled=1 vendor/bin/phpunit \
+		&& php -dmemory_limit=-1 -derror_reporting=-1 -ddisplay_errors=On -dpcov.enabled=1 vendor/bin/phpunit \
 			-vvv \
 			--testdox \
 			--coverage-html=var/cache/test-coverage/html \

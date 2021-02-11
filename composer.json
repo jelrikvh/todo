@@ -15,7 +15,6 @@
     },
     "require-dev": {
         "infection/infection": "~0.20.0",
-        "phpmd/phpmd": "^2.9",
         "phpstan/phpstan": "^0.12.74",
         "phpunit/phpunit": "^9.5",
         "slevomat/coding-standard": "^6.4",
