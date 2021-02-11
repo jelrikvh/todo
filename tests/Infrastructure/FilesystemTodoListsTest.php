@@ -43,7 +43,7 @@ final class FilesystemTodoListsTest extends TestCase
         $todoList->addAnItem($itemToRemove);
         $todoList->addAnItem(Item::new('new item 3'));
 
-        $todoList->removeItem($itemToRemove);
+        $todoList->removeAnItem($itemToRemove);
 
         $this->assertCount(2, $todoList->list());
         $this->assertSame('new item 1', $todoList->list()[0]->label());

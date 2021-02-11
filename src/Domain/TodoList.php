@@ -11,7 +11,7 @@ interface TodoList
     /** @return array<Item> */
     public function list(): array;
 
-    public function removeItem(Item $itemToRemove): void;
+    public function removeAnItem(Item $itemToRemove): void;
 
     /** @param array<Item> $items */
     public function overwriteAllItems(array $items): void;

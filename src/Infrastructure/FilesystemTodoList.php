@@ -51,7 +51,7 @@ final class FilesystemTodoList implements TodoList
         );
     }
 
-    public function removeItem(Item $itemToRemove): void
+    public function removeAnItem(Item $itemToRemove): void
     {
         $list = array_filter(
             $this->list(),
