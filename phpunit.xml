@@ -11,6 +11,10 @@
          failOnRisky="true"
          failOnWarning="true"
          verbose="true">
+    <php>
+        <env name="KERNEL_CLASS" value="Todo\Kernel"/>
+    </php>
+
     <testsuites>
         <testsuite name="default">
             <directory suffix="Test.php">tests</directory>
@@ -22,5 +26,8 @@
         <include>
             <directory suffix=".php">src</directory>
         </include>
+        <exclude>
+            <file>src/Kernel.php</file>
+        </exclude>
     </coverage>
 </phpunit>

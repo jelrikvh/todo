@@ -1,6 +1,8 @@
 <?xml version="1.0"?>
 <ruleset name="PHP_CodeSniffer">
 
+    <exclude-pattern>/src/Kernel.php</exclude-pattern>
+
     <rule ref="PSR12"/>
 
     <rule ref="Squiz">
