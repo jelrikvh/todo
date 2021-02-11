@@ -26,7 +26,6 @@ final class FilesystemTodoList implements TodoList
         $this->pathToTheDataFile = $pathToTheDataFile;
 
         $this->pathOfTheDataFile = sprintf('%s/%s', $this->pathToTheDataFile, $this->fileName);
-        $this->filesystem->touch($this->pathOfTheDataFile);
     }
 
     public function addAnItem(Item $item): void

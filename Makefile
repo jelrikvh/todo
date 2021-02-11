@@ -41,6 +41,7 @@ unit-test:
 		&& php infra/coverage-checker.php var/cache/test-coverage/clover.xml 100 \
 		&& php -derror_reporting -ddisplay_errors=On vendor/bin/infection \
 			--coverage=var/cache/test-coverage/ \
+			--only-covered \
 	'
 
 infra/.built: infra/Dockerfile

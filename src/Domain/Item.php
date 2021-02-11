@@ -6,6 +6,9 @@ namespace Todo\Domain;
 
 final class Item
 {
+    private const MINIMUM_NUMBER_FOR_IDENTIFIER = 1;
+    private const MAXIMUM_NUMBER_FOR_IDENTIFIER = 999999999999;
+
     private string $identifier;
     private bool $isChecked;
     private string $label;
@@ -19,7 +22,10 @@ final class Item
 
     public static function new(string $label): self
     {
-        return new self(md5((string) rand(1, 9999999999)), $label);
+        return new self(
+            md5((string) rand(self::MINIMUM_NUMBER_FOR_IDENTIFIER, self::MAXIMUM_NUMBER_FOR_IDENTIFIER)),
+            $label
+        );
     }
 
     public static function existing(string $identifier, string $label, bool $isChecked): self

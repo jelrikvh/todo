@@ -13,11 +13,6 @@ use Todo\Domain\Item;
  */
 final class FilesystemTodoListsTest extends TestCase
 {
-    public function setUp(): void
-    {
-        (new Filesystem())->touch('.data/test/list');
-    }
-
     public function tearDown(): void
     {
         (new Filesystem())->remove('.data/test/list');
@@ -26,12 +21,17 @@ final class FilesystemTodoListsTest extends TestCase
     public function test_items_can_be_added_to_the_todo_list(): void
     {
         $todoList = new FilesystemTodoList('.data/test');
-        $todoList->addAnItem(Item::new('new item 1'));
+        $checkedItem = Item::new('new item 1');
+        $checkedItem->check();
+
+        $todoList->addAnItem($checkedItem);
         $todoList->addAnItem(Item::new('new item 2'));
 
         $this->assertCount(2, $todoList->list());
         $this->assertSame('new item 1', $todoList->list()[0]->label());
         $this->assertSame('new item 2', $todoList->list()[1]->label());
+        $this->assertTrue($todoList->list()[0]->isChecked());
+        $this->assertFalse($todoList->list()[1]->isChecked());
     }
 
     public function test_an_item_can_be_removed_from_the_todo_list(): void

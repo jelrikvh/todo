@@ -8,9 +8,9 @@ services:
     resource: '../src/'
     exclude: ['../src/Kernel.php']
 
-  Todo\Domain\TodoLists:
-    alias: Todo\Infrastructure\FilesystemTodoLists
+  Todo\Domain\TodoList:
+    alias: Todo\Infrastructure\FilesystemTodoList
 
-  Todo\Infrastructure\FilesystemTodoLists:
+  Todo\Infrastructure\FilesystemTodoList:
     arguments:
       $pathToTheDataFile: '/var/opt/.data/todolist/dev'
