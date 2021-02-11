@@ -22,7 +22,16 @@ test: infra/.built vendor/composer/installed.json
 			src \
 			text \
 			phpmd.xml \
-		&& php -dmemory_limit=-1 -derror_reporting=-1 -ddisplay_errors=On -dpcov.enabled=1 vendor/bin/phpunit \
+	'
+	$(MAKE) unit-test
+
+.PHONY: clean
+clean:
+	git clean -fdX
+
+unit-test:
+	$(DOCKER_COMPOSE) run --no-deps php sh -c ' \
+		php -dmemory_limit=-1 -derror_reporting=-1 -ddisplay_errors=On -dpcov.enabled=1 vendor/bin/phpunit \
 			-vvv \
 			--testdox \
 			--coverage-html=var/cache/test-coverage/html \
@@ -33,10 +42,6 @@ test: infra/.built vendor/composer/installed.json
 		&& php -derror_reporting -ddisplay_errors=On vendor/bin/infection \
 			--coverage=var/cache/test-coverage/ \
 	'
-
-.PHONY: clean
-clean:
-	git clean -fdX
 
 infra/.built: infra/Dockerfile
 	$(DOCKER_COMPOSE) build php
