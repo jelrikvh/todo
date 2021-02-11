@@ -31,6 +31,10 @@ test: infra/.built vendor/composer/installed.json
 			--only-covered \
 	'
 
+.PHONY: clean
+clean:
+	git clean -fdX
+
 infra/.built: infra/Dockerfile
 	$(DOCKER_COMPOSE) build php
 	touch $@
