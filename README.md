@@ -71,6 +71,8 @@ To run the quality control suite, use either one the following commands:
   more difficult (or at least time-intensive) than I hoped. I dived into that rabbit hole and spent some time on it
   before remembering the "keep it MVP" instruction for this assessment. I think the current interface, that always ends
   with the list of "Logical next commands" is relatively usable in the meantime.
+- There are some technical improvements that could be made, but that I didn't choose to do at the current time. They are
+  on the backlog below.
 
 
 ## Backlog
