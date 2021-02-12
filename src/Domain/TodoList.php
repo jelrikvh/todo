@@ -15,6 +15,10 @@ interface TodoList
     /** @return array<Item> */
     public function list(): array;
 
+    public function moveDown(Item $itemToMoveDown): void;
+
+    public function moveUp(Item $itemToMoveUp): void;
+
     public function removeAnItem(Item $itemToRemove): void;
 
     /** @param array<Item> $items */

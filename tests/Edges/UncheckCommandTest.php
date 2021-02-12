@@ -61,6 +61,8 @@ final class UncheckCommandTest extends KernelTestCase
 Tick off an item (use the number from the list above): bin/console todo:check 1
 Uncheck an item (use the number from the list above): bin/console todo:uncheck 1
 Remove an item (use the number from the list above): bin/console todo:remove 1
+Move an item up in the list (use the number from the list above): bin/console todo:up 1
+Move an item down in the list (use the number from the list above): bin/console todo:down 1
 Add an item to the list: bin/console todo:add "Do groceries"
 
 TEXT
@@ -108,6 +110,8 @@ TEXT
 Tick off an item (use the number from the list above): bin/console todo:check 1
 Uncheck an item (use the number from the list above): bin/console todo:uncheck 1
 Remove an item (use the number from the list above): bin/console todo:remove 1
+Move an item up in the list (use the number from the list above): bin/console todo:up 1
+Move an item down in the list (use the number from the list above): bin/console todo:down 1
 Add an item to the list: bin/console todo:add "Do groceries"
 
 TEXT

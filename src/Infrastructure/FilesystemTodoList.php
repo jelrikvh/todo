@@ -8,6 +8,7 @@ use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Finder\SplFileInfo;
 use Todo\Domain\Item;
+use Todo\Domain\SorryTheItemIsNotInTheList;
 use Todo\Domain\TodoList;
 
 final class FilesystemTodoList implements TodoList
@@ -65,6 +66,79 @@ final class FilesystemTodoList implements TodoList
             [$this, 'fromLineToItem'],
             $lines
         );
+    }
+
+    public function moveDown(Item $itemToMoveDown): void
+    {
+        $items = $this->list();
+        $oldPositionOfTheItemToMoveDown = null;
+
+        foreach ($items as $position => $item) {
+            if ($item->identifier() === $itemToMoveDown->identifier()) {
+                $oldPositionOfTheItemToMoveDown = $position;
+
+                // @codeCoverageIgnoreStart
+                /**
+                 * We ignore this, because the functionality _without_ the break is the same (there won't be two items
+                 * with the same identifier, we assume) and that triggers a mutant to escape. We do want this break here
+                 * for performance reasons (when we found the item, we don't need to loop through the rest of the list).
+                 */
+
+                break;
+                // @codeCoverageIgnoreEnd
+            }
+        }
+
+        if (!is_int($oldPositionOfTheItemToMoveDown)) {
+            throw new SorryTheItemIsNotInTheList();
+        }
+
+        $lastPositionInTheList = count($items) - 1;
+        $newPositionOfTheItemToMoveDown = $oldPositionOfTheItemToMoveDown === $lastPositionInTheList
+            ? $lastPositionInTheList
+            : $oldPositionOfTheItemToMoveDown + 1;
+        $itemToMoveUp = $items[$newPositionOfTheItemToMoveDown];
+
+        $items[$newPositionOfTheItemToMoveDown] = $itemToMoveDown;
+        $items[$oldPositionOfTheItemToMoveDown] = $itemToMoveUp;
+
+        $this->overwriteAllItems($items);
+    }
+
+    public function moveUp(Item $itemToMoveUp): void
+    {
+        $items = $this->list();
+        $oldPositionOfTheItemToMoveUp = null;
+
+        foreach ($items as $position => $item) {
+            if ($item->identifier() === $itemToMoveUp->identifier()) {
+                $oldPositionOfTheItemToMoveUp = $position;
+
+                // @codeCoverageIgnoreStart
+                /**
+                 * We ignore this, because the functionality _without_ the break is the same (there won't be two items
+                 * with the same identifier, we assume) and that triggers a mutant to escape. We do want this break here
+                 * for performance reasons (when we found the item, we don't need to loop through the rest of the list).
+                 */
+
+                break;
+                // @codeCoverageIgnoreEnd
+            }
+        }
+
+        if (!is_int($oldPositionOfTheItemToMoveUp)) {
+            throw new SorryTheItemIsNotInTheList();
+        }
+
+        $newPositionOfTheItemToMoveUp = $oldPositionOfTheItemToMoveUp === 0
+            ? 0
+            : $oldPositionOfTheItemToMoveUp - 1;
+        $itemToMoveDown = $items[$newPositionOfTheItemToMoveUp];
+
+        $items[$newPositionOfTheItemToMoveUp] = $itemToMoveUp;
+        $items[$oldPositionOfTheItemToMoveUp] = $itemToMoveDown;
+
+        $this->overwriteAllItems($items);
     }
 
     public function removeAnItem(Item $itemToRemove): void

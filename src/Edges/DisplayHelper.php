@@ -33,6 +33,10 @@ final class DisplayHelper
             $output->writeln('Tick off an item (use the number from the list above): bin/console todo:check 1');
             $output->writeln('Uncheck an item (use the number from the list above): bin/console todo:uncheck 1');
             $output->writeln('Remove an item (use the number from the list above): bin/console todo:remove 1');
+            $output->writeln('Move an item up in the list (use the number from the list above): bin/console todo:up 1');
+            $output->writeln(
+                'Move an item down in the list (use the number from the list above): bin/console todo:down 1'
+            );
         }
 
         $output->writeln('Add an item to the list: bin/console todo:add "Do groceries"');

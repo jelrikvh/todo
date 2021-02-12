@@ -7,6 +7,7 @@ namespace Todo\Infrastructure;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Filesystem\Filesystem;
 use Todo\Domain\Item;
+use Todo\Domain\SorryTheItemIsNotInTheList;
 
 /**
  * @covers \Todo\Infrastructure\FilesystemTodoList
@@ -73,6 +74,102 @@ final class FilesystemTodoListsTest extends TestCase
     {
         $todoList = new FilesystemTodoList('.data/test');
         $this->assertTrue($todoList->isAllDone());
+    }
+
+    public function test_an_item_can_be_moved_up_in_the_list(): void
+    {
+        $todoList = new FilesystemTodoList('.data/test');
+        $topItem = Item::new('top item');
+        $bottomItem = Item::new('bottom item');
+        $todoList->addAnItem($topItem);
+        $todoList->addAnItem($bottomItem);
+
+        $todoList->moveUp($bottomItem);
+
+        $this->assertSame($bottomItem->identifier(), $todoList->list()[0]->identifier());
+    }
+
+    public function test_an_item_at_the_top_of_the_list_does_not_result_in_failure(): void
+    {
+        $todoList = new FilesystemTodoList('.data/test');
+        $topItem = Item::new('top item');
+        $bottomItem = Item::new('bottom item');
+        $todoList->addAnItem($topItem);
+        $todoList->addAnItem($bottomItem);
+
+        $todoList->moveUp($topItem);
+
+        $this->assertSame($topItem->identifier(), $todoList->list()[0]->identifier());
+    }
+
+    public function test_moving_an_item_up_that_is_not_in_the_list_should_trigger_an_exception(): void
+    {
+        $this->expectException(SorryTheItemIsNotInTheList::class);
+
+        $todoList = new FilesystemTodoList('.data/test');
+        $topItem = Item::new('top item');
+        $bottomItem = Item::new('bottom item');
+        $todoList->addAnItem($topItem);
+        $todoList->addAnItem($bottomItem);
+
+        $todoList->moveUp(Item::new('not in the list'));
+    }
+
+    public function test_an_empty_list_should_always_trigger_an_exception_when_trying_to_move_an_item_up(): void
+    {
+        $this->expectException(SorryTheItemIsNotInTheList::class);
+
+        $todoList = new FilesystemTodoList('.data/test');
+
+        $todoList->moveUp(Item::new('not in the list'));
+    }
+
+    public function test_an_item_can_be_moved_down_in_the_list(): void
+    {
+        $todoList = new FilesystemTodoList('.data/test');
+        $topItem = Item::new('top item');
+        $bottomItem = Item::new('bottom item');
+        $todoList->addAnItem($topItem);
+        $todoList->addAnItem($bottomItem);
+
+        $todoList->moveDown($topItem);
+
+        $this->assertSame($topItem->identifier(), $todoList->list()[1]->identifier());
+    }
+
+    public function test_an_item_at_the_bottom_of_the_list_does_not_result_in_failure(): void
+    {
+        $todoList = new FilesystemTodoList('.data/test');
+        $topItem = Item::new('top item');
+        $bottomItem = Item::new('bottom item');
+        $todoList->addAnItem($topItem);
+        $todoList->addAnItem($bottomItem);
+
+        $todoList->moveDown($bottomItem);
+
+        $this->assertSame($bottomItem->identifier(), $todoList->list()[1]->identifier());
+    }
+
+    public function test_moving_an_item_down_that_is_not_in_the_list_should_trigger_an_exception(): void
+    {
+        $this->expectException(SorryTheItemIsNotInTheList::class);
+
+        $todoList = new FilesystemTodoList('.data/test');
+        $topItem = Item::new('top item');
+        $bottomItem = Item::new('bottom item');
+        $todoList->addAnItem($topItem);
+        $todoList->addAnItem($bottomItem);
+
+        $todoList->moveDown(Item::new('not in the list'));
+    }
+
+    public function test_an_empty_list_should_always_trigger_an_exception_when_trying_to_move_an_item_down(): void
+    {
+        $this->expectException(SorryTheItemIsNotInTheList::class);
+
+        $todoList = new FilesystemTodoList('.data/test');
+
+        $todoList->moveDown(Item::new('not in the list'));
     }
 
     public function test_an_item_can_be_removed_from_the_todo_list(): void
