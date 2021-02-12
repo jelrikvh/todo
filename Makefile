@@ -27,6 +27,7 @@ test: infra/.built vendor/composer/installed.json
 			--log-junit=var/cache/test-coverage/phpunit.junit.xml \
 		&& php infra/coverage-checker.php var/cache/test-coverage/clover.xml 100 \
 		&& php -derror_reporting -ddisplay_errors=On vendor/bin/infection \
+			--skip-initial-tests \
 			--coverage=var/cache/test-coverage/ \
 			--only-covered \
 	'
