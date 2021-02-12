@@ -82,8 +82,11 @@ To run the quality control suite, use either one the following commands:
 - [x] Implement the domain so that the domain tests succeed.
 - [x] Write the edge a.k.a. end-to-end a.k.a. integration tests (testing the command line interface);
 - [x] Implement the command line interface with a Symfony command;
+- [ ] Move items up and down in the list;
 - [ ] Move the `check` and `uncheck` methods from the `Item` class to the `TodoList` class to be more in line with the
-`removeAnItem`, and to eliminate the need for an explicit `overwriteAllItems` call.
+`removeAnItem`, and to eliminate the need for an explicit `overwriteAllItems` call;
+- [ ] Share the code that is used to retrieve the `lineNumber` argument from the command line interface between the edge
+commands that use it.
 
 ## Known issues
 
