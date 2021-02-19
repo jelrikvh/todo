@@ -1,17 +1,16 @@
 # Todo application
 
-This application serves very small showcase of how I would set up a PHP/Symfony project with Docker development
+This application serves as a very small showcase of how I would set up a PHP/Symfony project with Docker development
 environment.
 
 ## Usage
 
-To run the application, all you need to have installed are `docker` and `make`.
+To run the application, all you need to have installed are `docker`, `docker-compose`, and `make`.
 
 Run
 
     make shell
 
-to open the PHP container with a shell.
 
 > You can suffix all `make` commands with `XDEBUG=1` to enable remote step-debugging. I chose to not automatically
 > enable xdebug, because it makes the php container significantly slower.
@@ -29,6 +28,8 @@ The following commands are available for mutation:
     bin/console todo:remove [item number obtained from the todo list view]
     bin/console todo:check [item number obtained from the todo list view]
     bin/console todo:uncheck [item number obtained from the todo list view]
+    bin/console todo:up [item number obtained from the todo list view] // to move an item up in the list
+    bin/console todo:down [item number obtained from the todo list view] // to move an item down in the list
 
 ## Technical choices
 
@@ -62,15 +63,15 @@ To run the quality control suite, use either one the following commands:
 
 ### What I didn't do
 
-- I did not include an HTML frontend, as discussed, as that would have taken me relatively long while you are not trying
-  to hire me for a frontend position.
+- I did not include an HTML frontend as that would have taken me relatively long while I'm a backend developer and not a
+  frontend guru. There are people that can do HTML way better than I can;
 - I did toy around with the idea of making this application use a Command and Event bus, to process domain events and
   commands. This would be a useful improvement for the future, when multiple edges would be in play. But for now, as we
-  only have the cli edge, it makes the application overly complex.
+  only have the cli edge, it makes the application overly complex;
 - I did toy around with the idea of making an interactive "one command"-application, but that turned out to be a little
   more difficult (or at least time-intensive) than I hoped. I dived into that rabbit hole and spent some time on it
   before remembering the "keep it MVP" instruction for this assessment. I think the current interface, that always ends
-  with the list of "Logical next commands" is relatively usable in the meantime.
+  with the list of "Logical next commands" is relatively usable in the meantime;
 - There are some technical improvements that could be made, but that I didn't choose to do at the current time. They are
   on the backlog below.
 
@@ -84,7 +85,7 @@ To run the quality control suite, use either one the following commands:
 - [x] Implement the domain so that the domain tests succeed.
 - [x] Write the edge a.k.a. end-to-end a.k.a. integration tests (testing the command line interface);
 - [x] Implement the command line interface with a Symfony command;
-- [ ] Move items up and down in the list;
+- [x] Move items up and down in the list;
 - [ ] Move the `check` and `uncheck` methods from the `Item` class to the `TodoList` class to be more in line with the
 `removeAnItem`, and to eliminate the need for an explicit `overwriteAllItems` call;
 - [ ] Share the code that is used to retrieve the `lineNumber` argument from the command line interface between the edge
@@ -92,8 +93,6 @@ commands that use it.
 
 ## Known issues
 
-- For some reason, `make` thinks it should run `composer install` every time `test` or `shell` is ran, because the
-  `vendor/composer/installed.json` file is always older than `composer.lock`, which it should not be;
 - It's a design choice, looking at the scope of this project, to not account for multiple processes/users/people to use
   this application at the same time. If you do, you might walk into race conditions where list and item number
   shorthands have changed in between two commands.
