@@ -33,8 +33,9 @@ test: infra/.built vendor/composer/installed.json
 	'
 
 .PHONY: clean
+## Removes all files that are ignored by .gitignore, so you can start your development environment afresh. It will leave .idea/ alone, though.
 clean:
-	git clean -fdX
+	git clean -fdX --exclude=\!.idea
 
 infra/.built: infra/Dockerfile
 	$(DOCKER_COMPOSE) build php

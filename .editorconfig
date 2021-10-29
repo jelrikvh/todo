@@ -14,5 +14,5 @@ indent_size = 2
 [{**/*.mk,Makefile}]
 indent_style = tab
 
-[package.json]
+[*.json]
 indent_size = 2
