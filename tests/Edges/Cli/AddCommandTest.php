@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Todo\Edges;
+namespace Todo\Edges\Cli;
 
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
@@ -11,8 +11,8 @@ use Symfony\Component\Console\Tester\CommandTester;
 use Symfony\Component\Filesystem\Filesystem;
 
 /**
- * @covers \Todo\Edges\AddCommand
- * @covers \Todo\Edges\DisplayHelper
+ * @covers \Todo\Edges\Cli\AddCommand
+ * @covers \Todo\Edges\Cli\DisplayHelper
  */
 final class AddCommandTest extends KernelTestCase
 {

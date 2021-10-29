@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Todo\Edges;
+namespace Todo\Edges\Cli;
 
 use Symfony\Component\Console\Output\OutputInterface;
 use Todo\Domain\TodoList;

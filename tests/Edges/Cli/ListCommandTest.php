@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Todo\Edges;
+namespace Todo\Edges\Cli;
 
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
@@ -10,8 +10,8 @@ use Symfony\Component\Console\Tester\CommandTester;
 use Symfony\Component\Filesystem\Filesystem;
 
 /**
- * @covers \Todo\Edges\ListCommand
- * @covers \Todo\Edges\DisplayHelper
+ * @covers \Todo\Edges\Cli\ListCommand
+ * @covers \Todo\Edges\Cli\DisplayHelper
  */
 final class ListCommandTest extends KernelTestCase
 {

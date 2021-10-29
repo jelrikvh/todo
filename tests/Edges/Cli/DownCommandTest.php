@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Todo\Edges;
+namespace Todo\Edges\Cli;
 
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
@@ -10,17 +10,17 @@ use Symfony\Component\Console\Tester\CommandTester;
 use Symfony\Component\Filesystem\Filesystem;
 
 /**
- * @covers \Todo\Edges\UncheckCommand
- * @covers \Todo\Edges\DisplayHelper
+ * @covers \Todo\Edges\Cli\DownCommand
+ * @covers \Todo\Edges\Cli\DisplayHelper
  */
-final class UncheckCommandTest extends KernelTestCase
+final class DownCommandTest extends KernelTestCase
 {
     public function tearDown(): void
     {
         (new FileSystem())->remove(sprintf('%s/../../.data/test/list', __DIR__));
     }
 
-    public function test_it_unchecks_a_previously_checked_item(): void
+    public function test_it_moves_an_item_down(): void
     {
         (new FileSystem())->copy(
             sprintf('%s/todolist-for-tests', __DIR__),
@@ -37,24 +37,24 @@ final class UncheckCommandTest extends KernelTestCase
 
         $output = $commandTester->getDisplay();
         $this->assertStringContainsString(
-            '3: [x]',
+            " 1: [ ] Item 2, unchecked\n 2: [x] Item 3, checked",
             $output,
-            "The fourth item was expected to be checked when the test starts; it isn't."
+            "We expected items 1 and 2 to be in the correct order when this test starts; they aren't."
         );
 
-        $command = $application->find('todo:uncheck');
+        $command = $application->find('todo:down');
         $commandTester = new CommandTester($command);
 
-        $commandTester->execute(['itemNumber' => 3]);
+        $commandTester->execute(['itemNumber' => 1]);
 
         $output = $commandTester->getDisplay();
         $this->assertSame(
             <<<TEXT
 ### Todo list
  0: [ ] Item 1, unchecked
- 1: [ ] Item 2, unchecked
- 2: [x] Item 3, checked
- 3: [ ] Item 4, checked
+ 1: [x] Item 3, checked
+ 2: [ ] Item 2, unchecked
+ 3: [x] Item 4, checked
  4: [ ] Item 5, unchecked
 
 # Logical next steps:
@@ -69,7 +69,7 @@ TEXT
             , $output);
     }
 
-    public function test_it_does_not_fail_when_the_item_is_already_unchecked(): void
+    public function test_it_does_not_fail_when_the_item_is_already_at_the_bottom_of_the_list(): void
     {
         (new FileSystem())->copy(
             sprintf('%s/todolist-for-tests', __DIR__),
@@ -86,15 +86,15 @@ TEXT
 
         $output = $commandTester->getDisplay();
         $this->assertStringContainsString(
-            '0: [ ]',
+            '4: [ ] Item 5, unchecked',
             $output,
-            "The first item was expected to be unchecked when the test starts; it isn't."
+            "The last item was expected to be at the top already when the test starts; it isn't."
         );
 
-        $command = $application->find('todo:uncheck');
+        $command = $application->find('todo:down');
         $commandTester = new CommandTester($command);
 
-        $commandTester->execute(['itemNumber' => 0]);
+        $commandTester->execute(['itemNumber' => 4]);
 
         $output = $commandTester->getDisplay();
         $this->assertSame(
@@ -128,7 +128,7 @@ TEXT
         $kernel = self::createKernel();
         $application = new Application($kernel);
 
-        $command = $application->find('todo:uncheck');
+        $command = $application->find('todo:down');
         $commandTester = new CommandTester($command);
 
         $commandTester->execute(['itemNumber' => 5]);
@@ -148,7 +148,7 @@ TEXT
         $kernel = self::createKernel();
         $application = new Application($kernel);
 
-        $command = $application->find('todo:uncheck');
+        $command = $application->find('todo:down');
         $commandTester = new CommandTester($command);
 
         $commandTester->execute(['itemNumber' => []]);
@@ -168,7 +168,7 @@ TEXT
         $kernel = self::createKernel();
         $application = new Application($kernel);
 
-        $command = $application->find('todo:uncheck');
+        $command = $application->find('todo:down');
         $commandTester = new CommandTester($command);
 
         $commandTester->execute(['itemNumber' => null]);

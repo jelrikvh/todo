@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Todo\Edges;
+namespace Todo\Edges\Cli;
 
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -10,11 +10,11 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Todo\Domain\TodoList;
 
-final class CheckCommand extends Command
+final class UncheckCommand extends Command
 {
     /** @var string (This property cannot be natively typehinted, because the parent class misses the typehint */
     // phpcs:ignore SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
-    protected static $defaultName = 'todo:check';
+    protected static $defaultName = 'todo:uncheck';
     private DisplayHelper $displayHelper;
     private TodoList $todoList;
 
@@ -46,7 +46,7 @@ final class CheckCommand extends Command
             return Command::FAILURE;
         }
 
-        $items[$itemNumber]->check();
+        $items[$itemNumber]->uncheck();
         $this->todoList->overwriteAllItems($items);
 
         $this->displayHelper->showTheList($output, $this->todoList);
