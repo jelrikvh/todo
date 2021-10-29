@@ -3,17 +3,26 @@
          xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.5/phpunit.xsd"
          bootstrap="vendor/autoload.php"
          cacheResultFile="var/cache/phpunit/test-results"
+         colors="true"
          executionOrder="depends,defects"
          forceCoversAnnotation="true"
          beStrictAboutOutputDuringTests="true"
          beStrictAboutTodoAnnotatedTests="true"
          failOnRisky="true"
          failOnWarning="true"
+         testdox="true"
          verbose="true">
     <php>
         <env name="KERNEL_CLASS" value="Todo\Kernel"/>
         <env name="SYMFONY_ENV" value="test"/>
         <env name="DIRECTORY_THAT_CONTAINS_THE_TODO_LIST" value=".data/test"/>
+
+        <ini name="display_errors" value="On" />
+        <ini name="error_reporting" value="-1" />
+        <ini name="memory_limit" value="-1" />
+        <ini name="pcov.enabled" value="1" />
+
+        <server name="SHELL_VERBOSITY" value="-1" />
     </php>
 
     <testsuites>

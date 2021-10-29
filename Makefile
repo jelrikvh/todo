@@ -18,9 +18,7 @@ test: infra/.built vendor/composer/installed.json
 		&& vendor/bin/phpcs \
 			--colors \
 			-s src \
-		&& php -dmemory_limit=-1 -derror_reporting=-1 -ddisplay_errors=On -dpcov.enabled=1 vendor/bin/phpunit \
-			-vvv \
-			--testdox \
+		&& php vendor/bin/phpunit \
 			--coverage-html=var/cache/test-coverage/html \
 			--coverage-xml=var/cache/test-coverage/xml \
 			--coverage-clover=var/cache/test-coverage/clover.xml \
