@@ -8,7 +8,7 @@ shell: infra/.built vendor/composer/installed.json
 
 .PHONY: test
 test: infra/.built vendor/composer/installed.json
-	$(DOCKER_COMPOSE) run --no-deps php sh -c ' \
+	$(DOCKER_COMPOSE) run --no-deps php sh -c '\
 		vendor/bin/phpstan \
 			analyse \
 			-c phpstan.neon \
